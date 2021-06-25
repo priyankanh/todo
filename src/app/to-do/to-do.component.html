@@ -1,0 +1,159 @@
+<!-- Products-->
+<mat-toolbar>
+  <nav>
+    <a routerLink="/products">Products</a>
+  </nav> 
+</mat-toolbar>
+
+<!-- Error -->
+<app-error></app-error>
+
+
+<!-- Filter Data-->
+<div class="header">
+   <mat-toolbar color="primary">
+      <h1>API Datas</h1>  
+          </mat-toolbar>
+    <h1 class="title">Filter API Data </h1>
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+  </mat-form-field>
+</div>
+<!-- API Datas -->
+<div class="container">
+  <h1 class="title"> API Datas </h1>
+  <h3>{{msg}}</h3>
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let list , let i = index">{{i+1}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+      <mat-cell *matCellDef="let list"> <a (click)="goto(list.id)">
+          {{list.title}}</a> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="completed">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Completed </mat-header-cell>
+      <mat-cell *matCellDef="let list">
+        <span *ngIf=list.completed>Completed</span>
+        <span *ngIf=!list.completed>Pending</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+      <mat-cell *matCellDef="let list"> {{list.description}} </mat-cell>
+    </ng-container>
+    <!-- Delete/Update -->
+    <ng-container  matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Delete/Update </mat-header-cell>
+      <mat-cell *matCellDef="let list">
+        <div  mat-dialog-actions>
+          <button mat-raised-button (click)="callAPI(list)">Upd</button>
+            <ng-template #callAPIDialog>
+            <h2 class="updatetask">Update Task 
+            <p align="right">
+            <button mat-icon (click)="closeDialog()">Close</button>
+          </p>
+        </h2>
+            <mat-dialog-actions>  
+                     
+              <mat-form-field class="updatecontainer">
+                <mat-label>Title</mat-label>
+                <input matInput [(ngModel)]="data.title">
+              </mat-form-field> 
+           
+              <mat-form-field class="updatecontainer" appearance="fill">
+                <mat-label>Select Status</mat-label>
+                <mat-select matNativeControl [(ngModel)]="data.completed">
+                  <mat-option [value]=true>Completed</mat-option>
+                  <mat-option [value]=false>Pending</mat-option>
+                </mat-select>
+              </mat-form-field>
+           
+              <mat-form-field class="updatecontainer">
+                <mat-label>Description</mat-label>
+                <input matInput [(ngModel)]="data.description">
+              </mat-form-field> 
+                    
+            <p align="right">      
+              <button mat-button (click)="updatetask(data)">Update</button>
+            </p>
+            </mat-dialog-actions>
+          </ng-template>
+        </div>
+        <button mat-raised-button (click)="deletetask(list.id)">Del </button>
+       
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+</div>
+
+<form class="addtaskcontainer" [formGroup]="AddForm" (ngSubmit)="addtask()">
+  <h1 class="title"> Add Task </h1>
+  <mat-form-field>
+    <mat-label>Add Task</mat-label>
+    <input matInput placeholder="Add task" formControlName="addTask">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select Status</mat-label>
+    <mat-select matNativeControl formControlName="selectStatus">
+      <mat-option [value]=true>Completed</mat-option>
+      <mat-option [value]=false>Pending</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="Add Description" formControlName="addDes"></textarea>
+  </mat-form-field>
+
+  <button class="button" [disabled]="!AddForm.valid" type="submit">Add Task</button>
+</form>
+
+
+<!--   Filter -->
+
+<div class="container">
+  <h1 class="title"> Filter </h1>
+  <mat-table [dataSource]="filterdataSource">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let list , let i = index">{{i+1}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+      <mat-cell *matCellDef="let list"> <a (click)="goto(list.id)">
+          {{list.title}}</a> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="completed">
+      <mat-header-cell *matHeaderCellDef> Completed </mat-header-cell>
+      <mat-cell *matCellDef="let list">
+        <span *ngIf=list.completed>Completed</span>
+        <span *ngIf=!list.completed>Pending</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let list"> {{list.description}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedfilterColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedfilterColumns;">
+    </mat-row>
+  </mat-table>
+</div>
+

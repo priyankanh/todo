@@ -1,0 +1,32 @@
+
+<div class="container" style="text-align:center">
+    <style>
+        table,
+        th,
+        td {
+            text-align: center
+        }
+    </style>
+    <table class="table" style="width: 50px;  border: 1px solid purple; padding: 15px;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Completed</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>{{this.todo.id}}</td>
+            <td> {{this.todo.title}}</td>
+            <td> <span *ngIf=this.todo.completed>completed</span>
+                <span *ngIf=!this.todo.completed>Pending</span>
+            </td>
+           <!-- <td> {{this.todo.completed}}</td> -->
+            <td>{{this.todo.description}}</td>
+
+        </tbody>
+    </table>
+</div>
+<!-- 
+<app-product></app-product> -->

@@ -1,0 +1,25 @@
+.content {
+    padding: 10px;
+    text-align: center;        
+    }
+
+.content > mat-card {
+    width: 200px;    
+   }
+
+img{
+    width: 250px;
+    height: 200px;
+}
+
+.quantity{
+    display: flex;
+    justify-content: center;
+    text-align: center; 
+}
+
+.quantity button{
+    width: 20px;
+    height: 20px;
+    color: red;    
+    }

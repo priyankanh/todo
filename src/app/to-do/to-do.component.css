@@ -1,0 +1,43 @@
+.header{
+    text-align: center;
+ } 
+.title{
+    color: rgb(137, 35, 233);   
+  }  
+  .container {  
+    padding: 10px;  
+    max-width: 500px;
+    margin:  auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;  
+  }        
+  .addtaskcontainer{
+    padding: 10px;  
+    max-width: 400px;
+    margin:  auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .button{
+    max-width: 80px;
+    text-align: center;      
+    color:black;    
+  }
+ .updatecontainer{
+  max-width: 400px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row-reverse; 
+   
+ }
+ .updatetask{
+  text-align: center; 
+  color: rgb(137, 35, 233); 
+   
+ }
+
+  
+  
+ 

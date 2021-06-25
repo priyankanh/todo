@@ -1,0 +1,45 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>        
+    <form [formGroup]="LoginForm" (ngSubmit)="onsubmit()">
+      <h1 class="title"> Login </h1>
+      <mat-form-field class="full-width-input">         
+       <mat-label>UserName </mat-label> 
+   <input matInput placeholder="UserName" formControlName="UserName" >
+     <mat-error *ngIf="LoginForm.controls['UserName'].invalid && (LoginForm.controls['UserName'].dirty || LoginForm.controls['UserName'].touched)" class="alert alert-danger">
+      <mat-error *ngIf="LoginForm.controls['UserName'].errors">        
+            Please Enter your Valid Name       
+    </mat-error>
+  </mat-error> 
+</mat-form-field>  
+ 
+<mat-form-field class="full-width-input">   
+   <mat-label>Gmail </mat-label>
+   <input matInput placeholder="Gmail"  formControlName="gmail" > 
+    <mat-error *ngIf="LoginForm.controls['gmail'].invalid && (LoginForm.controls['gmail'].dirty || LoginForm.controls['gmail'].touched)" class="alert alert-danger">
+    <mat-error *ngIf="LoginForm.controls['gmail'].errors">
+            Please Enter your Valid Mail        
+    </mat-error>
+  </mat-error> 
+</mat-form-field> 
+
+<mat-form-field class="full-width-input">     
+      <mat-label>Password </mat-label>
+   <input matInput type="text" placeholder="Password"  formControlName="password" >
+   <mat-error *ngIf="LoginForm.controls['password'].invalid && (LoginForm.controls['password'].dirty || LoginForm.controls['password'].touched)" class="alert alert-danger" >
+    <mat-error *ngIf="LoginForm.controls['password'].errors">
+    Please Enter your Valid Password
+  </mat-error>
+</mat-error> 
+</mat-form-field>
+<button mat-raised-button color="primary"  [disabled]="!LoginForm.valid" type="submit">Login</button>
+ 
+<!--
+<button type="submit" class="btn btn-primary" [disabled]="!LoginForm.valid" >Submit</button> -->
+
+</form>
+ </mat-card-content>
+</mat-card> 
+</div>
+
+
